@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        table{
+        border:"2px solid black";
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data</title>
+</head>
+<body>
+    <table border="1" class="">
+    </table>
+    <button><a href="index.html">Back</a></button>
+    <script>
+        const get=async()=>{
+            const data=await fetch('http://localhost:3000')
+            const d=await data.json();
+            console.log('data got from get ',d)
+            content=`
+            
+            <tr>
+                <th>Employee Name</th>
+                <th>Mail Id</th>
+                <th>Phone NO</th>
+                <th>Gender</th>
+                <th>Qualification</th>
+                <th>Years of Experience in Previous Organization</th>
+                <th>Date of Joining in Current Organization </th>
+                <th>Years of Experience in Current Organization</th>
+            </tr>
+            `;
+            d.forEach(e=> {
+                content+=`
+                <tr>
+                <td>${e.employee}</td>
+                <td>${e.mailid}</td>
+                <td>${e.phoneNo}</td>
+                <td>${e.gender}</td>
+                <td>${e.qualification}</td>
+                <td>${JSON.stringify(e.yearsofexperienceprev).substring(1,JSON.stringify(e.yearsofexperienceprev).length-1)}</td>
+                <td>${JSON.stringify(e.dateofjoining).substring(1,JSON.stringify(e.dateofjoining).length-1)}</td>
+                <td>${JSON.stringify(e.yearsofexperiencecurr).substring(1,JSON.stringify(e.yearsofexperiencecurr).length-1)}</td>
+            </tr>
+                `
+            });
+            const t=document.querySelector('table')
+            t.innerHTML=content
+        }
+        get();
+        
+    </script>
+</body>
+</html>
